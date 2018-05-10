@@ -59,7 +59,7 @@ public class SMBResourceClientTest {
 		 */
 		clientConfig.setDomain("");
 		// smbclient【文件共享服务器】地址
-		clientConfig.setHost("10.71.32.151");
+		clientConfig.setHost("192.168.31.100");
 		// smbclient【文件共享服务器】用户名
 		clientConfig.setUsername("");
 		// smbclient【文件共享服务器】密码；注意事项：登陆服务器的密码不支持强密码（如密码含有 &……%￥smbclient 等字符，都当成分隔符处理）
@@ -84,26 +84,26 @@ public class SMBResourceClientTest {
 	//@Test
  	public void uploadFile() {
  		try {
- 			File localFile = new File("E:\\第九套广播体操.mp4");
+ 			File localFile = new File("E:\\test.mp4");
  			
- 			smbClient.upload("E:\\第九套广播体操.mp4","tst1.mp4");
+ 			smbClient.upload("E:\\test.mp4","tst1.mp4");
  			smbClient.upload(localFile, "tst.mp4");
- 			smbClient.upload(localFile,"20063586/tst.mp4");
- 			smbClient.upload(localFile ,"20063586/20160118","tst.mp4");
+ 			smbClient.upload(localFile,"test/tst.mp4");
+ 			smbClient.upload(localFile ,"test/test","tst.mp4");
  			
  			smbClient.upload(new FileInputStream(localFile),"tst2.mp4");
- 			smbClient.upload(new FileInputStream(localFile),"20063586","tst2.mp4" );
- 			smbClient.upload(new FileInputStream(localFile),"20063586/20160118","tst2.mp4");
+ 			smbClient.upload(new FileInputStream(localFile),"test","tst2.mp4" );
+ 			smbClient.upload(new FileInputStream(localFile),"test/test","tst2.mp4");
  			
  			smbClient.upload(new StringBuilder(fileContent),"tst1.txt");
- 			smbClient.upload(new StringBuilder(fileContent),"20063586","tst2.txt");
- 			smbClient.upload(new StringBuilder(fileContent),"20063586/20160118","tst3.txt");
+ 			smbClient.upload(new StringBuilder(fileContent),"test","tst2.txt");
+ 			smbClient.upload(new StringBuilder(fileContent),"test/test","tst3.txt");
  			
- 			smbClient.upload("E:\\第九套广播体操.mp4","tst3.mp4");
- 			smbClient.upload("E:\\第九套广播体操.mp4","20063586","tst4.mp4");
- 			smbClient.upload("E:\\第九套广播体操.mp4","20063586/20160118","tst5.mp4");
+ 			smbClient.upload("E:\\test.mp4","tst3.mp4");
+ 			smbClient.upload("E:\\test.mp4","test","tst4.mp4");
+ 			smbClient.upload("E:\\test.mp4","test/test","tst5.mp4");
  			smbClient.uploadByChannel(localFile, "tst-c.mp4");
- 			smbClient.uploadByChannel(localFile,"20063586/20160118","tst-c.mp4");
+ 			smbClient.uploadByChannel(localFile,"test/test","tst-c.mp4");
  			
  		} catch (Exception e) {
  			e.printStackTrace();
@@ -117,15 +117,15 @@ public class SMBResourceClientTest {
  	public void listFile() {
  		try {
  			
- 			for(SmbFile smbFile : smbClient.listFiles("20063586")){
+ 			for(SmbFile smbFile : smbClient.listFiles("test")){
  				LOG.info("File:" + smbFile.getName());
  			}
  			
- 			LOG.info("Files:" +StringUtils.join(smbClient.listNames("20063586"),","));
+ 			LOG.info("Files:" +StringUtils.join(smbClient.listNames("test"),","));
  			
- 			SmbFile smbFile1 = smbClient.getFile("20063586", "tst1.txt");
+ 			SmbFile smbFile1 = smbClient.getFile("test", "tst1.txt");
  			LOG.info("File1:" + smbFile1.getName());
- 			SmbFile smbFile2 = smbClient.getFile("20063586/tst1.txt");
+ 			SmbFile smbFile2 = smbClient.getFile("test/tst1.txt");
  			LOG.info("File2:" + smbFile2.getName());
  			
  		} catch (Exception e) {
@@ -140,14 +140,14 @@ public class SMBResourceClientTest {
  	public void downFile() {
  		try {
  			
- 			smbClient.downloadToFile("tst1.mp4", "E:\\test\\第九套广播体操1.mp4");
- 			smbClient.downloadToFile("tst.mp4", new File("E:\\test\\第九套广播体操.mp4"));
- 			smbClient.downloadToFile("20063586/20160118","tst.mp4", "E:\\test\\20063586\\第九套广播体操1.mp4");
- 			smbClient.downloadToFile("20063586/20160118","tst.mp4", new File("E:\\test\\20063586\\第九套广播体操2.mp4"));
- 			smbClient.downloadToStream("tst2.mp4", new FileOutputStream(new File("E:\\test\\第九套广播体操2.mp4")));
- 			smbClient.downloadToStream("20063586","tst2.mp4", new FileOutputStream(new File("E:\\test\\20063586\\第九套广播体操3.mp4")));
- 			smbClient.downloadToDir("20063586/20160118", "E:\\test\\20063586\\dir01");
- 			smbClient.downloadToDir("20063586/20160118", new File("E:\\test\\20063586\\dir02"));
+ 			smbClient.downloadToFile("tst1.mp4", "E:\\test\\test1.mp4");
+ 			smbClient.downloadToFile("tst.mp4", new File("E:\\test\\test.mp4"));
+ 			smbClient.downloadToFile("test/test","tst.mp4", "E:\\test\\test\\test1.mp4");
+ 			smbClient.downloadToFile("test/test","tst.mp4", new File("E:\\test\\test\\test2.mp4"));
+ 			smbClient.downloadToStream("tst2.mp4", new FileOutputStream(new File("E:\\test\\test2.mp4")));
+ 			smbClient.downloadToStream("test","tst2.mp4", new FileOutputStream(new File("E:\\test\\test\\test3.mp4")));
+ 			smbClient.downloadToDir("test/test", "E:\\test\\test\\dir01");
+ 			smbClient.downloadToDir("test/test", new File("E:\\test\\test\\dir02"));
  			
  		} catch (Exception e) {
  			e.printStackTrace();
@@ -160,13 +160,13 @@ public class SMBResourceClientTest {
  	//@Test
  	public void moveFile() {
  		try {
- 			smbClient.makeDir("20063586");
- 			smbClient.makeDir("20063586/dddd");
- 			smbClient.makeDir("20063586/ss/sdsd");
+ 			smbClient.makeDir("test");
+ 			smbClient.makeDir("test/dddd");
+ 			smbClient.makeDir("test/ss/sdsd");
  			
  			smbClient.rename("tst2-sss9.mp4","tst1.mp4");
  			smbClient.rename("tst1.mp4", "tst2-sss9.mp4");
- 			smbClient.renameTo("tst2-sss9.mp4", "20063586//rename.mp4");
+ 			smbClient.renameTo("tst2-sss9.mp4", "test//rename.mp4");
  		} catch (Exception e) {
  			e.printStackTrace();
  		} 
@@ -180,9 +180,9 @@ public class SMBResourceClientTest {
  		try {
  			smbClient.remove("tst.mp4");
  			smbClient.remove(new String[]{"tst2.mp4","tst1.mp4"});
- 			smbClient.remove("20063586", "tst.mp4");
- 			smbClient.remove("20063586",new String[]{"tst1.txt","tst2.mp4","tst1.mp4"});
- 			smbClient.removeDir("20063586");
+ 			smbClient.remove("test", "tst.mp4");
+ 			smbClient.remove("test",new String[]{"tst1.txt","tst2.mp4","tst1.mp4"});
+ 			smbClient.removeDir("test");
  		} catch (Exception e) {
  			e.printStackTrace();
  		} 
