@@ -4,6 +4,8 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import net.jeebiz.smbclient.io.CopyStreamProcessListener;
 
 /**
@@ -57,6 +59,10 @@ public class SMBClientConfig {
 	protected String copyStreamProcessListenerName;
 	/** 从数据读取的超时时间，单位（毫秒）；默认 30000 毫秒 */
 	protected int readTimeout = DEFAULT_READ_TIMEOUT;
+	/** 是否本地备份上传的文件：该方式有助于提高文件服务可用性，为用户下载文件省去网络开销 */
+	protected boolean localBackupAble = false;
+	/** 本地备份路径 ;默认userdir,如果开启了本地备份功能，建议指定该目录地址 */
+	protected String localBackupDir = SystemUtils.getUserDir().getAbsolutePath();
 	/** 是否使用Log4j记录命令信息,默认打印出命令，如果开启日志则关闭打印;默认 false */
 	protected boolean logDebug = false;
 	/** 启用或禁用在条件允许情况下允许协议使用缓存 */
@@ -182,6 +188,22 @@ public class SMBClientConfig {
 
 	public void setSharedDir(String sharedDir) {
 		this.sharedDir = sharedDir;
+	}
+
+	public boolean isLocalBackupAble() {
+		return localBackupAble;
+	}
+
+	public void setLocalBackupAble(boolean localBackupAble) {
+		this.localBackupAble = localBackupAble;
+	}
+
+	public String getLocalBackupDir() {
+		return localBackupDir;
+	}
+
+	public void setLocalBackupDir(String localBackupDir) {
+		this.localBackupDir = localBackupDir;
 	}
 
 	public boolean isLogDebug() {
