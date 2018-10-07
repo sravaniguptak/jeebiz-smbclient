@@ -141,15 +141,7 @@ public class SMBStreamUtils {
     }
     
     /**
-     * 
-     * @description	： 拷贝本地文件到共享文件服务器
-     * @author 		：wandalong
-     * @date 		：Jan 20, 2016 4:08:05 PM
-     * @param input
-     * @param sharedFile
-     * @param skipOffset
-     * @return
-     * @throws IOException
+     * 拷贝本地文件到共享文件服务器
      */
 	public static long copyLarge(InputStream input,SMBClient sharedFile,long skipOffset) throws IOException {
 		OutputStream output = null;
@@ -213,13 +205,7 @@ public class SMBStreamUtils {
 	
 	
 	/**
-	 * 
-	 * @description	： 跳过指定的长度,实现断点续传  
-	 * @author 		：wandalong
-	 * @date 		：Jan 15, 2016 3:02:34 PM
-	 * @param input
-	 * @param offset
-	 * @throws IOException
+	 * 跳过指定的长度,实现断点续传  
 	 */
 	public static long skip(InputStream input,long offset) throws IOException{
 		long at = offset;
@@ -234,13 +220,7 @@ public class SMBStreamUtils {
 	}
 	
 	/**
-	 * 
-	 * @description	：跳过指定的长度,实现断点续传  
-	 * @author 		：wandalong
-	 * @date 		：Jan 15, 2016 3:02:50 PM
-	 * @param channel
-	 * @param offset
-	 * @throws IOException
+	 * 跳过指定的长度,实现断点续传  
 	 */
 	public static void skip(FileChannel channel,long offset) throws IOException{
 		if (offset > channel.size()) {  
