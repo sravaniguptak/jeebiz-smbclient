@@ -22,13 +22,6 @@ import jcifs.smb.SmbFile;
 import net.jeebiz.smbclient.SMBClient;
 import net.jeebiz.smbclient.filefilter.IOSmbFileFilter;
 
-/**
- * 
- * @className	： SMBClientUtils
- * @description	： SMBClient常用方法：
- * @author 		： <a href="mailto:hnxyhcwdl1003@163.com">wandalong</a>
- * @date		： Jan 13, 2016 2:31:28 PM
- */
 public class SMBClientUtils {
 
 protected static Logger LOG = LoggerFactory.getLogger(SMBClientUtils.class);
